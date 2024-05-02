@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 import {
   DropdownMenu,
@@ -18,22 +18,43 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Plus, User } from "lucide-react"
+} from "@/components/ui/dropdown-menu";
+import { Plus, User } from "lucide-react";
+import CatCard from "../../components/CatCard/index.jsx";
+
+const DialogWithCatCard = () => {
+  const [isOpen, setIsOpen] = useState(false);
+}
+
+  const openDialog = () => {
+    setIsOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
 
 const Homepage = () => {
   return (
     <>
-      <header className='flex justify-between items-center py-5 px-10 bg-green-800 text-white'>
-        <h1 className="">
-          Cat 704
-        </h1>
+      <header className="flex justify-between items-center py-5 px-10 bg-green-800 text-white">
+        <h1 className="">Cat 704</h1>
 
         <div className="flex gap-x-4">
-          <Button variant="outline">
-            <Plus />
-            Add a cat
-          </Button>
+            <Dialog className="bg-white">
+              <DialogTrigger asChild>
+                <Button variant="outline">Add a cat</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Add a cat</DialogTitle>
+                </DialogHeader>
+                <CatCard/>
+                <DialogFooter>
+                  <Button type="submit">Save changes</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <User />
@@ -51,7 +72,8 @@ const Homepage = () => {
                     <DialogHeader>
                       <DialogTitle>Edit profile</DialogTitle>
                       <DialogDescription>
-                        Make changes to your profile here. Click save when you're done.
+                        Make changes to your profile here. Click save when
+                        you're done.
                       </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -90,7 +112,8 @@ const Homepage = () => {
                     <DialogHeader>
                       <DialogTitle>Edit profile</DialogTitle>
                       <DialogDescription>
-                        Make changes to your profile here. Click save when you're done.
+                        Make changes to your profile here. Click save when
+                        you're done.
                       </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -123,12 +146,10 @@ const Homepage = () => {
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
-
         </div>
       </header>
-
     </>
   );
-}
+};
 
 export default Homepage;

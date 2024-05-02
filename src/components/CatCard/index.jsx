@@ -16,6 +16,7 @@ const CatCard = () => {
     const file = event.target.files[0];
     setImage(file);
   };
+  
 
   return (
     <div className="p-4 border border-gray-300 rounded">
