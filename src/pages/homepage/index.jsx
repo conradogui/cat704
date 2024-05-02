@@ -37,8 +37,6 @@ const getCat = async () => {
   }
 }
 
-} from "@/components/ui/dropdown-menu";
-import { Plus, User } from "lucide-react";
 import CatCard from "../../components/CatCard/index.jsx";
 
 const DialogWithCatCard = () => {
