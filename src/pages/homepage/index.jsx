@@ -18,6 +18,25 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Plus, User } from "lucide-react"
+import { useEffect, useState } from "react"
+import CardCat from "../../components/ui/_card-cat"
+
+const getCat = async () => {
+  try {
+    const response = await fetch('https://nxcuamed0k.execute-api.us-east-1.amazonaws.com/cats');
+    if (!response.ok) {
+      throw new Error('Failed to fetch cat data');
+    }
+    const data = await response.json();
+    return data; // Retorna os dados da resposta diretamente
+  } catch (error) {
+    console.error('Error fetching cat data:', error);
+    return null; // Retorna null em caso de erro
+  }
+}
+
 } from "@/components/ui/dropdown-menu";
 import { Plus, User } from "lucide-react";
 import CatCard from "../../components/CatCard/index.jsx";
@@ -35,6 +54,19 @@ const DialogWithCatCard = () => {
   };
 
 const Homepage = () => {
+  const [catList, setCatList] = useState([]); // Estado para armazenar a lista de gatos
+
+  useEffect(() => {
+    // Ao montar o componente, chama a função getCat e atualiza o estado com os dados retornados
+    const fetchCatData = async () => {
+      const cats = await getCat();
+      if (cats) {
+        setCatList(cats);
+      }
+    };
+    fetchCatData();
+  }, []);
+
   return (
     <>
       <header className="flex justify-between items-center py-5 px-10 bg-green-800 text-white">
@@ -148,6 +180,17 @@ const Homepage = () => {
           </DropdownMenu>
         </div>
       </header>
+      <main>
+        {/* Lista de nomes de gatos */}
+        <ul className="grid grid-cols-1 gap-5 py-10 px-5 bg-gray-50 lg:grid-cols-3">
+          {catList.data && catList.data.map((cat) => (
+            <li key={cat.id}>
+              { console.log(cat)}
+              <CardCat name={cat.name} photosrc={cat.photo.url} owner={cat.owner_email} breed={cat.breed.name} description={cat.description} />
+            </li>
+          ))}
+        </ul>
+      </main>
     </>
   );
 };
